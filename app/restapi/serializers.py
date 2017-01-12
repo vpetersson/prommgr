@@ -26,5 +26,6 @@ class ServerSerializer(serializers.ModelSerializer):
             'deleted',
             'id',
             'server_ip',
+            'server_port',
             'updated_at',
         )
