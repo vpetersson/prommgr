@@ -3,4 +3,4 @@ COPY app /app
 RUN pip install -r /app/requirements.txt
 WORKDIR /app
 ENV PYTHONUNBUFFERED 1
-CMD [ "python", "manage.py", "runserver"  ]
+CMD [ "gunicorn", "-b", "0.0.0.0:8000", "--workers", "4", "prommgr.wsgi" ]

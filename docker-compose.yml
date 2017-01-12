@@ -9,7 +9,6 @@ services:
     - /tmp/pg_data:/var/lib/postgresql/data
   prommgr:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
     volumes:
     - ./app:/app
     environment:
