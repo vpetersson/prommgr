@@ -35,7 +35,7 @@ SECRET_KEY = os.getenv(
 DEBUG = string_to_bool(
     os.getenv(
         'DEBUG',
-        True
+        False
     )
 )
 
@@ -88,14 +88,43 @@ WSGI_APPLICATION = 'prommgr.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+LOCAL_SERVER = string_to_bool(
+    os.getenv(
+        'LOCAL_SERVER',
+        False
+    )
+)
+
+if LOCAL_SERVER:
+    DB_ENGINE = 'django.db.backends.sqlite3'
+    DB_NAME = os.path.join(BASE_DIR, 'db.sqlite3'),
+    DB_USER = ''
+    DB_HOST = ''
+    DB_PASS = ''
+    DB_PORT = ''
+else:
+    DB_ENGINE = 'django.db.backends.postgresql_psycopg2'
+    DB_USER = os.getenv('DB_USER')
+    DB_NAME = os.getenv('DB_NAME')
+    DB_HOST = os.getenv('DB_HOST')
+    DB_PASS = os.getenv('DB_PASS')
+    DB_PORT = os.getenv('DB_PORT', 5432)
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': DB_ENGINE,
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASS,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT,
     }
 }
 
+if not LOCAL_SERVER:
+    DATABASES['OPTIONS'] = {
+        'timeout': 20,
+    }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

@@ -9,7 +9,7 @@ PROM_CONFIG_PATH = os.getenv('PROM_CONFIG_PATH', '/prom/targets')
 def delete_prom_config(server):
     config_file = os.path.join(
         PROM_CONFIG_PATH,
-        '{}.yaml'.format(server.id)
+        '{}.yml'.format(server.id)
     )
 
     if os.path.exists(config_file):
@@ -19,7 +19,7 @@ def delete_prom_config(server):
 def write_prom_config(server):
     config_file = os.path.join(
         PROM_CONFIG_PATH,
-        '{}.yaml'.format(server.id)
+        '{}.yml'.format(server.id)
     )
     get_config = prom_helper.generate_prom_server_config(server)
     with open(config_file, 'w') as f:

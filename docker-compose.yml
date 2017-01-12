@@ -1,0 +1,43 @@
+version: '2'
+services:
+  db:
+    environment:
+      - POSTGRES_USER=prommgr
+      - POSTGRES_PASSWORD=prommgr
+    image: postgres
+  prommgr:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+     - .:/code
+    environment:
+      - DEBUG=True
+      - DB_HOST=db
+      - DB_USER=prommgr
+      - DB_PASS=prommgr
+      - DB_NAME=prommgr
+      - PROM_CONFIG_PATH=/targets
+    ports:
+    - "8000:8000"
+    depends_on:
+    - db
+    volumes:
+    - "./prom/targets:/targets"
+  prom:
+    image: prom/prometheus
+    ports:
+    - "9090:9090"
+    volumes:
+    - "./prom/prometheus.yml:/etc/prometheus/prometheus.yml:ro"
+    - "./prom/targets:/targets:ro"
+    - "./prom//alert.rules:/etc/prometheus/alert.rules:ro"
+    command: -config.file=/etc/prometheus/prometheus.yml -alertmanager.url http://alertmanager:9093
+    depends_on:
+    - alertmanager
+  alertmanager:
+    image: prom/alertmanager
+    ports:
+    - "9093:9093"
+    volumes:
+    - "./prom/webhook.yml:/etc/alertmanager/webhook.yml:ro"
+    command: -config.file=/etc/alertmanager/webhook.yml
