@@ -9,6 +9,7 @@ A Prometheus management framework.
 $ virtualenv venv
 $ source venv/bin/activate
 $ cd app
+$ pip install -r requirements.txt
 $ python manage.py syncdb
 [...]
 $ python manage.py runserver
@@ -21,6 +22,7 @@ $ docker-compose build
 $ docker-compose up
 $ docker-compose restart prommgr
 $ docker-compose exec prommgr python manage.py syncdb
+[...]
 ```
 
 ## API Documentation
