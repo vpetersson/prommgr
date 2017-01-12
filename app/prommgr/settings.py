@@ -39,7 +39,13 @@ DEBUG = string_to_bool(
     )
 )
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS'.split(','), [])
+# Check for the ALLOWED_HOSTS env variables.
+# If present, use it and split it into a list.
+get_hosts = os.getenv('ALLOWED_HOSTS', False)
+if get_hosts:
+    ALLOWED_HOSTS = get_hosts.split(',')
+else:
+    ALLOWED_HOSTS = []
 
 # Application definition
 
