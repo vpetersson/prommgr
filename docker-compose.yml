@@ -5,17 +5,19 @@ services:
       - POSTGRES_USER=prommgr
       - POSTGRES_PASSWORD=prommgr
     image: postgres
+    volumes:
+    - /tmp/pg_data:/var/lib/postgresql/data
   prommgr:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-     - .:/code
+    - ./app:/app
     environment:
-      - DEBUG=True
-      - DB_HOST=db
-      - DB_USER=prommgr
-      - DB_PASS=prommgr
-      - DB_NAME=prommgr
+    - DEBUG=True
+    - DB_HOST=db
+    - DB_USER=prommgr
+    - DB_PASS=prommgr
+    - DB_NAME=prommgr
     ports:
     - "8000:8000"
     depends_on:
@@ -24,14 +26,14 @@ services:
     build: .
     command: ./bin/update_prom.sh
     volumes:
-     - .:/code
+    - ./app:/app
     environment:
-      - DEBUG=True
-      - DB_HOST=db
-      - DB_USER=prommgr
-      - DB_PASS=prommgr
-      - DB_NAME=prommgr
-      - PROM_CONFIG_PATH=/targets
+    - DEBUG=True
+    - DB_HOST=db
+    - DB_USER=prommgr
+    - DB_PASS=prommgr
+    - DB_NAME=prommgr
+    - PROM_CONFIG_PATH=/targets
     depends_on:
     - db
     volumes:

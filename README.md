@@ -26,13 +26,6 @@ Depending on if the database is ready by the time Django starts, you may also ha
 $ docker-compose restart prommgr
 ```
 
-To write and delete Prometheus configs, use:
-
-```
-$ docker-compose exec prommgr python manage.py update_prom_config --delete
-$ docker-compose exec prommgr python manage.py update_prom_config
-```
-
 ## API Documentation
 
 For API documentation, spin up the server locally and visit `/docs`.
@@ -46,7 +39,7 @@ The system is configured for these alerts (configured in `prom/alerts.rules`)::
  * High memory usage.
  * Disk is expected to fill up in the next four hours (for root partition).
 
-When an alert is fired, the webhook content will look like this:
+When an alert is fired, the webhook (target configured in `prom/webhook.yml`) content will look like this:
 
 ```
 {'alerts': [{'annotations': {'summary': 'Instance 1.2.3.4:9100 is down'},
