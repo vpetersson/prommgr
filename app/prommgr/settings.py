@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from distutils.util import strtobool
+
+
+def string_to_bool(string):
+    return bool(strtobool(str(string)))
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,13 +26,20 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')os73z-ew^jc#jhg!am(hxltn&x8dh$(_9d+7h$36d(1sjml-m'
+SECRET_KEY = os.getenv(
+    'SECRET_KEY',
+    ')os73z-ew^jc#jhg!am(hxltn&x8dh$(_9d+7h$36d(1sjml-m'
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = string_to_bool(
+    os.getenv(
+        'DEBUG',
+        True
+    )
+)
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 

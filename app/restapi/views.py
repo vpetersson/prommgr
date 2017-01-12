@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from django.http import Http404
-from lib import prom_helper
 from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.response import Response
@@ -64,20 +63,3 @@ class ServerByOwner(APIView):
         servers = self.get_object(request, owner)
         serializer = ServerSerializer(servers, many=True)
         return Response(serializer.data)
-
-
-class PromServerConfig(APIView):
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def get_object(self, pk):
-        try:
-            return Server.objects.get(pk=pk)
-        except Server.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        server = self.get_object(pk)
-
-        serializer = ServerSerializer(server)
-        payload = prom_helper.generate_prom_server_config(serializer.data)
-        return Response(payload)
