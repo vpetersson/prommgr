@@ -29,8 +29,8 @@ $ docker-compose restart prommgr
 To write and delete Prometheus configs, use:
 
 ```
-$ docker-compose exec prommgr python manage.py write_config --delete
-$ docker-compose exec prommgr python manage.py write_config
+$ docker-compose exec prommgr python manage.py update_prom_config --delete
+$ docker-compose exec prommgr python manage.py update_prom_config
 ```
 
 ## API Documentation

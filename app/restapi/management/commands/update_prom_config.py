@@ -17,11 +17,13 @@ def delete_prom_config(server):
     config_file = get_config_file_path(server.id)
 
     if os.path.exists(config_file):
+        print('Deleting server: {}'.format(server.id))
         os.remove(config_file)
 
 
 def write_prom_config(server):
     config_file = get_config_file_path(server.id)
+    print('Creating server: {}'.format(server.id))
 
     generate_config = prom_helper.generate_prom_server_config(server)
     with open(config_file, 'w') as f:
