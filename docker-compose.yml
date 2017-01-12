@@ -34,6 +34,7 @@ services:
     - DB_PASS=prommgr
     - DB_NAME=prommgr
     - PROM_CONFIG_PATH=/targets
+    - SECRET_KEY=ChangeMe
     depends_on:
     - db
     volumes:
