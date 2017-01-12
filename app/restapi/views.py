@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from restapi.models import Server
 from restapi.serializers import ServerSerializer
 from restapi.serializers import UserSerializer
+from rest_framework.exceptions import ValidationError
 
 
 class UserList(generics.ListAPIView):
@@ -23,6 +24,15 @@ class ServerList(generics.ListCreateAPIView):
     queryset = Server.objects.filter(deleted=False)
     serializer_class = ServerSerializer
     permission_classes = (permissions.IsAuthenticated,)
+
+    def perform_create(self, serializer):
+        queryset = Server.objects.filter(
+            server_ip=self.request.data['server_ip']
+        )
+        if queryset.exists():
+            raise ValidationError("A server with this IP already exists."
+                                  "Please delete the old one first.")
+        serializer.save()
 
 
 class ServerDetail(generics.RetrieveDestroyAPIView):

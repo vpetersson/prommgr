@@ -98,7 +98,7 @@ LOCAL_SERVER = string_to_bool(
 
 if LOCAL_SERVER:
     DB_ENGINE = 'django.db.backends.sqlite3'
-    DB_NAME = os.path.join(BASE_DIR, 'db.sqlite3'),
+    DB_NAME = os.path.join(BASE_DIR, 'db.sqlite3')
     DB_USER = ''
     DB_HOST = ''
     DB_PASS = ''
