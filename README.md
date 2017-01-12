@@ -33,9 +33,13 @@ $ docker-compose exec prommgr python manage.py write_config --delete
 $ docker-compose exec prommgr python manage.py write_config
 ```
 
+## API Documentation
+
+For API documentation, spin up the server locally and visit `/docs`.
+
 ## Alerts
 
-The system is configured for these alerts (configured in prom/alerts.rules)::
+The system is configured for these alerts (configured in `prom/alerts.rules`)::
 
  * System is up/down.
  * High CPU load average.
