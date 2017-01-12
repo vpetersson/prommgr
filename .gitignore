@@ -90,3 +90,4 @@ ENV/
 db.sqlite3
 app/tmp
 prom/targets/*
+docker-compose-prod.yml
