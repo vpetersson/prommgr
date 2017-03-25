@@ -58,18 +58,3 @@ class ServerByIp(APIView):
         server = self.get_object(request, server_ip)
         serializer = ServerSerializer(server)
         return Response(serializer.data)
-
-
-class ServerByOwner(APIView):
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def get_object(self, request, owner):
-        try:
-            return Server.objects.filter(cloudnet_owner_id=owner)
-        except Server.DoesNotExist:
-            raise Http404
-
-    def get(self, request, owner, format=None):
-        servers = self.get_object(request, owner)
-        serializer = ServerSerializer(servers, many=True)
-        return Response(serializer.data)

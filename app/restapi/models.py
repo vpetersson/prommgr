@@ -2,12 +2,6 @@ from django.db import models
 
 
 class Server(models.Model):
-    cloudnet_owner_id = models.IntegerField(
-        verbose_name='Cloud.net Owner Id',
-    )
-    cloudnet_server_id = models.IntegerField(
-        verbose_name='Cloud.net Server Id',
-    )
     server_ip = models.GenericIPAddressField(
         verbose_name='Server IP'
     )

@@ -19,8 +19,6 @@ class ServerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Server
         fields = (
-            'cloudnet_owner_id',
-            'cloudnet_server_id',
             'comment',
             'created_at',
             'deleted',

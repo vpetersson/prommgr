@@ -14,8 +14,6 @@ class Migration(migrations.Migration):
             name='Server',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
-                ('cloudnet_owner_id', models.IntegerField(verbose_name='Cloud.net Owner Id')),
-                ('cloudnet_server_id', models.IntegerField(verbose_name='Cloud.net Server Id')),
                 ('server_ip', models.GenericIPAddressField(verbose_name='Server IP')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
